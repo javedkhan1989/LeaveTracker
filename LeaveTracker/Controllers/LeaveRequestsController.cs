@@ -55,7 +55,7 @@ namespace LeaveTracker.Controllers
             var req = _context.LeaveRequests.Find(id);
             if (req == null) return NotFound();
 
-            req.Status = "Approved";
+            req.Status = "Approved New";
             _context.SaveChanges();
 
             return Ok(req);
