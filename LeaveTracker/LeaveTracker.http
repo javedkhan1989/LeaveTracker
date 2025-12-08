@@ -1,0 +1,6 @@
+@LeaveTracker_HostAddress = http://localhost:5247
+
+GET {{LeaveTracker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

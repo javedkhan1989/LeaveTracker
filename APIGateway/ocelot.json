@@ -1,0 +1,93 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ],
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/login",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/register",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7299
+        }
+      ],
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/register",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/employees",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7029
+        }
+      ],
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/employees",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/LeaveRequests",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7029
+        }
+      ],
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/LeaveRequests",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/LeaveRequests/{id}/approve",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7029
+        }
+      ],
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/LeaveRequests/{id}/approve",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/LeaveRequests/{id}/reject",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7029
+        }
+      ],
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/LeaveRequests/{id}/reject",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/LeaveTypes",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7029
+        }
+      ],
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/LeaveTypes",
+      "UpstreamHttpMethod": ["GET", "POST" ]
+    }    
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7161"
+  }
+}
