@@ -1,4 +1,5 @@
 ﻿using LeaveTrackerMVC.Models;
+using LeaveTrackerMVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -12,10 +13,12 @@ namespace LeaveTrackerMVC.Controllers
         private string LeaveTypesUrl = "https://localhost:7161/LeaveTypes";
         //  private HttpClient httpClient = new HttpClient();
         private readonly IHttpClientFactory _clientFactory;
+        private readonly LeaveApiService _apiService;
 
-        public RequestController(IHttpClientFactory clientFactory)
+        public RequestController(IHttpClientFactory clientFactory,LeaveApiService apiService)
         {
             _clientFactory = clientFactory;
+            _apiService = apiService;
         }
         public async Task<IActionResult> Index()
         {
@@ -121,32 +124,33 @@ namespace LeaveTrackerMVC.Controllers
                 ViewBag.LeaveTypes = new List<SelectListItem>();
             }
         }
-        //private async Task LoadLeaveTypesFromApi()
-        //{
-        //    var token = HttpContext.Session.GetString("JWToken");
-        //    var Role = HttpContext.Session.GetString("Role");
 
+        public async Task<IActionResult> Approve(int id)
+        {
+            var success = await _apiService.ApproveLeave(id);
 
-        //    var client = _clientFactory.CreateClient();
-        //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-        //    List<LeaveType> leaveTypes = new List<LeaveType>();
-        //    //HttpResponseMessage response = httpClient.GetAsync(url).Result;
-        //    var response = await client.GetAsync(LeaveTypesUrl);
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        string result = response.Content.ReadAsStringAsync().Result;
-        //        var data = JsonConvert.DeserializeObject<List<LeaveType>>(result);
-        //        ViewBag.LeaveTypes = leaveTypes.Select(x => new SelectListItem
-        //        {
-        //            Value = x.LeaveTypeId.ToString(),
-        //            Text = x.TypeName
-        //        }).ToList();
-        //    }
-        //    else
-        //    {
-        //        ViewBag.LeaveTypes = new List<SelectListItem>();
-        //    }
-        //}
+            if (!success)
+            {
+                TempData["Error"] = "Unable to approve leave!";
+                return RedirectToAction("Index");
+            }
 
+            TempData["Success"] = "Leave approved successfully!";
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Reject(int id)
+        {
+            var success = await _apiService.RejectLeave(id);
+
+            if (!success)
+            {
+                TempData["Error"] = "Unable to reject leave!";
+                return RedirectToAction("Index");
+            }
+
+            TempData["Success"] = "Leave reject successfully!";
+            return RedirectToAction("Index");
+        }
     }
 }
