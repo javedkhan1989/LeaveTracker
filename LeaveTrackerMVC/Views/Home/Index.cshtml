@@ -1,0 +1,139 @@
+﻿@model IEnumerable<LeaveTrackerMVC.Models.Employee>
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<style>
+    .index-page {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        padding: 28px 20px;
+        background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        min-height: 60vh;
+    }
+    .header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(90deg,#6d28d9 0%,#0891b2 100%);
+        color: #fff;
+        padding: 18px 22px;
+        border-radius: 12px;
+        box-shadow: 0 8px 28px rgba(13, 24, 36, 0.08);
+        margin-bottom: 18px;
+    }
+    .header-card h1 { margin:0; font-size:1.25rem; font-weight:700 }
+    .header-card .subtitle { opacity:0.9; font-size:0.95rem }
+
+    .controls {
+        display:flex;
+        gap:12px;
+        align-items:center;
+    }
+
+    .search-input {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(15,23,42,0.08);
+        min-width:220px;
+    }
+
+    .list-card {
+        background:#fff;
+        border-radius:12px;
+        padding: 18px;
+        box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+        border: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .table thead th { border-bottom: none; color: #0f172a; font-weight:600 }
+    .table tbody tr { transition: transform .08s ease; }
+    .table tbody tr:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(2,6,23,0.04); }
+    .badge-manager { background:#eef2ff; color:#3730a3; padding:6px 8px; border-radius:999px; font-weight:600 }
+
+    .empty-state {
+        text-align:center; padding:36px;color:#475569;
+    }
+
+    @@media (max-width: 680px) {
+        .header-card { flex-direction:column; gap:12px; align-items:flex-start }
+        .controls { width:100%; justify-content:space-between }
+        .search-input { min-width: 140px; }
+    }
+</style>
+
+<div class="index-page">
+    <div class="header-card">
+        <div>
+            <h1>Employees</h1>
+            <div class="subtitle">Manage employees who can request and approve leaves</div>
+        </div>
+        <div class="controls">
+            <input id="searchBox" class="search-input" placeholder="Search by name or email..." oninput="filterTable()" />
+            <a asp-action="Create" class="btn btn-light" style="background: linear-gradient(90deg,#fff 0,#f8fafc 100%); padding:8px 14px; border-radius:8px; border:1px solid rgba(15,23,42,0.06);">Create New</a>
+        </div>
+    </div>
+
+    <div class="list-card">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="empty-state">
+                <div style="font-size:1.1rem; font-weight:600">No employees found</div>
+                <div style="margin-top:8px">Click "Create New" to add your first employee.</div>
+            </div>
+        }
+        else
+        {
+            <div style="overflow:auto">
+                <table class="table table-hover" id="employeesTable">
+                    <thead>
+                        <tr>
+                            <th style="width:8%">ID</th>
+                            <th style="width:35%">Name</th>
+                            <th style="width:35%">Email</th>
+                            <th style="width:12%">Manager</th>
+                            <th style="width:10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="align-middle">@item.EmployeeId</td>
+                                <td class="align-middle">
+                                    <div style="font-weight:700">@item.Name</div>
+                                </td>
+                                <td class="align-middle">@item.Email</td>
+                                <td class="align-middle"><span class="badge-manager">@item.ManagerId</span></td>
+                                <td class="align-middle">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }, new { @class = "btn btn-sm btn-outline-primary", style = "margin-right:6px; padding:6px 8px; border-radius:8px;" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId }, new { @class = "btn btn-sm btn-outline-danger", style = "padding:6px 8px; border-radius:8px;" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function filterTable() {
+        var input = document.getElementById('searchBox');
+        var filter = input.value.toLowerCase();
+        var table = document.getElementById('employeesTable');
+        if (!table) return;
+        var trs = table.getElementsByTagName('tr');
+        for (var i = 1; i < trs.length; i++) { // skip header
+            var tds = trs[i].getElementsByTagName('td');
+            var name = (tds[1] && tds[1].innerText) ? tds[1].innerText.toLowerCase() : '';
+            var email = (tds[2] && tds[2].innerText) ? tds[2].innerText.toLowerCase() : '';
+            if (name.indexOf(filter) > -1 || email.indexOf(filter) > -1) {
+                trs[i].style.display = '';
+            } else {
+                trs[i].style.display = 'none';
+            }
+        }
+    }
+</script>

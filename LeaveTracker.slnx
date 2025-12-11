@@ -2,4 +2,5 @@
   <Project Path="APIGateway/APIGateway.csproj" Id="c0fcfcac-d8cf-4050-bde4-200e7aa96850" />
   <Project Path="Authentication/Authentication.csproj" />
   <Project Path="LeaveTracker/LeaveTracker.csproj" Id="aefb8ba9-53bc-4e0a-baf9-944bc0d72862" />
+  <Project Path="LeaveTrackerMVC/LeaveTrackerMVC.csproj" Id="d9268a3f-5a0a-4995-87b2-61560cb5cec1" />
 </Solution>

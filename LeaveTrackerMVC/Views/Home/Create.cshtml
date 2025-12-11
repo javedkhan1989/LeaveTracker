@@ -1,0 +1,101 @@
+﻿@model LeaveTrackerMVC.Models.Employee
+@{
+    ViewData["Title"] = "Create Employee";
+}
+
+<style>
+    .create-page {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+        min-height: 70vh;
+        padding: 40px 20px;
+    }
+    .create-card {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px rgba(34,34,34,0.08);
+        overflow: hidden;
+        border: 1px solid rgba(16,24,40,0.04);
+    }
+    .create-card .hero {
+        background: linear-gradient(90deg,#6366f1 0%,#06b6d4 100%);
+        color: #fff;
+        padding: 28px 32px;
+    }
+    .create-card .body {
+        padding: 28px 32px;
+    }
+    .form-label { font-weight: 600; color: #0f172a; }
+    .form-control { border-radius: 8px; padding: 10px 12px; }
+    .small-note { color:#6b7280; font-size:0.9rem }
+    .btn-primary {
+        background: linear-gradient(90deg,#4f46e5 0%,#06b6d4 100%);
+        border: none;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(79,70,229,0.18);
+    }
+    .btn-secondary {
+        background: transparent;
+        border: 1px solid rgba(15,23,42,0.08);
+        color: #0f172a;
+        padding: 9px 16px;
+        border-radius: 8px;
+    }
+    .field-validation-error { color: #dc2626; font-size:0.9rem }
+    @@media (max-width: 480px) {
+        .create-card { margin: 8px; }
+        .create-card .hero, .create-card .body { padding: 18px; }
+    }
+</style>
+
+<div class="create-page">
+    <div class="create-card">
+        <div class="hero d-flex justify-content-between align-items-center">
+            <div>
+                <h2 style="margin:0; font-size:1.25rem">Create Employee</h2>
+                <div class="small-note">Add a new employee so they can be tracked for leave requests.</div>
+            </div>
+            <div>
+                <a class="btn btn-secondary" href="@Url.Action("Index","Home")">Back to list</a>
+            </div>
+        </div>
+        <div class="body">
+            <form asp-controller="Home" asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <input asp-for="EmployeeId" type="hidden" />
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="field-validation-error"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="field-validation-error"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ManagerId" class="form-label">Manager Id</label>
+                    <input asp-for="ManagerId" class="form-control" type="number" />
+                    <span asp-validation-for="ManagerId" class="field-validation-error"></span>
+                </div>
+
+                <div class="d-flex gap-2" style="margin-top:18px">
+                    <button type="submit" class="btn-primary">Save Employee</button>
+                    <button type="reset" class="btn-secondary">Reset</button>
+                </div>
+
+                <div class="mt-3 small-note">All fields marked required must be filled before submitting.</div>
+            </form>
+
+            <partial name="_ValidationScriptsPartial" />
+        </div>
+    </div>
+</div>

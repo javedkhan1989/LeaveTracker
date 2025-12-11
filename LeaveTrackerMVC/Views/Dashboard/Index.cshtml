@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<nav class="navbar bg-light mb-4 shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold">Leave Tracker</a>
+        <div class="d-flex align-items-center">
+            <a class="me-3 nav-link" href="/Dashboard">Dashboard</a>            
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Employees</a>
+            <a class="me-3 nav-link" asp-area="" asp-controller="Leavetype" asp-action="Index">Leave Types</a>
+            <a class="me-3 nav-link" asp-area="" asp-controller="Request" asp-action="Index">>Requests</a>
+            <a class="me-3 nav-link" asp-area="" asp-controller="Request" asp-action="Create">>Apply</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="h3 mb-0">Dashboard</h1>
+                <small class="text-muted">Overview of leaves and employees</small>
+            </div>
+            <div>
+                <button class="btn btn-primary me-2">Create Request</button>
+                <button class="btn btn-outline-secondary">Manage</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm rounded-3 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-subtitle text-muted">Employees</h6>
+                            <h3 class="card-title mb-0">0</h3>
+                        </div>
+                        <div class="text-primary fs-2">👥</div>
+                    </div>
+                    <a href="/Employees" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm rounded-3 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-subtitle text-muted">Leave Types</h6>
+                            <h3 class="card-title mb-0">0</h3>
+                        </div>
+                        <div class="text-success fs-2">📁</div>
+                    </div>
+                    <a href="/LeaveTypes" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm rounded-3 h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-subtitle text-muted">Requests</h6>
+                            <h3 class="card-title mb-0">0</h3>
+                        </div>
+                        <div class="text-warning fs-2">📝</div>
+                    </div>
+                    <a href="/Leaves" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card shadow-sm rounded-3 h-100 border-start border-4 border-primary">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-subtitle text-muted">Pending</h6>
+                            <h3 class="card-title mb-0">0</h3>
+                        </div>
+                        <div class="text-danger fs-2">⏳</div>
+                    </div>
+                    <a href="/Leaves?filter=pending" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <strong>Recent Requests</strong>
+                    <small class="text-muted">Last 7 days</small>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Type</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">No requests yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <strong>Quick Actions</strong>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-primary" href="/Apply">Apply for Leave</a>
+                        <a class="btn btn-outline-secondary" href="/Employees">View Employees</a>
+                        <a class="btn btn-outline-success" href="/LeaveTypes">Manage Leave Types</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
